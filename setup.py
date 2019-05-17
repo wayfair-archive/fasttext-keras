@@ -55,10 +55,9 @@ setuptools.setup(
     cmdclass=cmd_class,
     long_description=open("README.md").read(),
     install_requires=[
-        "cython==0.28.2",
-        "numpy==1.14.4",
-        "keras==2.2.2",
-        "tensorflow==1.10.0"
+        "numpy>=1.15",
+        "keras>=2.2.4",
+        "tensorflow>=1.12.1"
     ],
     version=version
 )

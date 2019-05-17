@@ -1,4 +1,4 @@
-# PyFastText
+# fasttext-keras
 
 Python implementation for the [FastText](https://fasttext.cc/) model
 implementation developed by Facebook.
