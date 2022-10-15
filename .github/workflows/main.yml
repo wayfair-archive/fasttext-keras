@@ -1,0 +1,40 @@
+name: CI
+
+# Workflow does NOT trigger on a feature branch until a pull request is created.
+# Workflow will always run when a pull request is merged to the default branch.
+on:
+  pull_request: {}
+  push:
+      branches: ["main"]
+env:
+  PYTHON_VERSION: "3.10"
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🧼 lint renovate config # Validates changes to renovate.json config file
+        uses: suzuki-shunsuke/github-action-renovate-config-validator@v0.1.2
+        with:
+          config_file_path: 'renovate.json'
+
+
+  verify-wheel:
+    runs-on: ubuntu-latest
+    strategy:
+          matrix:
+            python-version: ["3.7", "3.8", "3.9", "3.10"]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4.2.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build wheel
+        uses: ./.github/actions/build-dist
+      - name: Verify wheel
+        uses: ./.github/actions/verify-wheel
+        with:
+          package-import-name: "fasttext-keras"
+
