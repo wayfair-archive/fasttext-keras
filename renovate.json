@@ -6,7 +6,6 @@
   ],
 
    "enabledManagers": [
-    "docker-compose",
     "github-actions",
     "setup-cfg"
   ],
